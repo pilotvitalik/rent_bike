@@ -1,0 +1,290 @@
+**Структура URL**
+- Регистрация пользователя: POST /api/auth/register/
+- Авторизация пользователя: POST /api/auth/login/
+- Редактирование пользователя: PUT /api/user/{id}/
+- Удаление пользователя: DELETE /api/user/{id}/
+- Добавление велосипеда: POST /api/bike/
+- Редактирование велосипеда: PUT /api/bike/{id}/
+- Удаление велосипеда: DELETE /api/bike/{id}/
+- Получение списка велосипедов: GET /api/bikes/
+- Фильтрация списка велосипедов по статусу: GET /api/bikes/
+- Аренда велосипеда: POST /api/rent/
+- Возврат велосипеда: POST /api/rent/return/
+- История аренды пользователя: GET /api/history/
+
+
+**Регистрация пользователя**
+- **Метод**: POST
+- **URL**: /api/auth/register/
+- **Тело запроса**:
+     ```json
+     {
+       "name": "Mikle",
+       "surname": "Koza",
+       "phone": "+79120392931",
+       "email": "sadasdsad@mail.ru",
+       "passwd": "dasdasd",
+     }
+     ```
+- **Ответ**:
+     ```json
+     {
+       "status": "success",
+       "message": "Пользователь успешно зарегистрирован",
+       "user": {
+         "id": "5",
+         "name": "Mikle",
+         "surname": "Koza",
+         "phone": "+79120392931",
+         "email": "sadasdsad@mail.ru",
+       }
+     }
+     ```
+**Авторизация пользователя**
+- **Метод**: POST
+- **URL**: /api/auth/login/
+- **Тело запроса**:
+     ```json
+     {
+       "login": "sadasdsad@mail.ru",
+       "passwd": "dasdasd",
+     }
+     ```
+- **Ответ**:
+     ```json
+     {
+       "status": "success",
+       "message": "Пользователь авторзован",
+       "token": "jwt_token"
+     }
+     ```
+**Редактирование пользователя**
+- **Метод**: PUT
+- **URL**: /api/user/{id}/
+- **Тело запроса**:
+     ```json
+     {
+       "name": "Mikle",
+       "surname": "Koza",
+     }
+     ```
+- **Ответ**:
+     ```json
+     {
+       "status": "success",
+       "message": "Данные обновлены",
+       "user": {
+         "id": "2",
+         "name": "Mikle",
+         "surname": "Koza",
+         "phone": "+79120392931",
+         "email": "sadasdsad@mail.ru"
+       }
+     }
+     ```
+
+**Удаление пользователя**
+- **Метод**: DELETE
+- **URL**: /api/user/{id}/
+- **Параметры запроса**: Нет
+- **Ответ**:
+      ```json
+        {
+          "status": "success",
+          "message": "Пользователь успешно удален"
+        }
+      ```
+
+**Добавление велосипеда**
+- **Метод**: POST
+- **URL**: /api/bike/
+- **Тело запроса**:
+     ```json
+     {
+       "brand": "Stels",
+       "rent_price": "10",
+       "photo": "https://example.com/photo.jpg"
+     }
+     ```
+- **Ответ**:
+     ```json
+     {
+       "status": "success",
+       "message": "Велосипед успешно добавлен",
+       "bike": {
+         "id": "2",
+         "brand": "Stels",
+         "rent_price": "10",
+         "photo": "https://example.com/photo.jpg",
+         "status": "available"
+       }
+     }
+     ```
+
+**Редактирование велосипеда**
+- **Метод**: PUT
+- **URL**: /api/bike/{id}/
+- **Тело запроса**:
+     ```json
+     {
+       "brand": "dsadsad",
+       "rent_price": 15.00,
+       "status_id": 1
+     }
+     ```
+- **Ответ**:
+     ```json
+     {
+       "status": "success",
+       "message": "Данные успешно обновлены",
+       "bike" : {
+         "id": "2",
+         "brand": "dsadsad",
+         "rent_price": "10",
+         "photo": "",
+         "status": "1"
+       }
+     }
+     ```
+
+**Удаление велосипеда**
+- **Метод**: DELETE
+- **URL**: /api/bike/{id}/
+- **Параметры запроса**: Нет
+- **Ответ**:
+    ```json
+    {
+      "status": "success",
+      "message": "Велосипед успешно обновлен"
+    }
+    ```
+
+**Получение списка велосипедов**
+- **Метод**: GET
+- **URL**: /api/bikes/
+- **Параметры запроса**: Нет
+- **Ответ**:
+     ```json
+     {
+        "total": 100,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 10,
+        "data": [
+          {
+             "id": 1,
+             "brand": "Stels",
+             "rent_price": "10",
+             "photo": "",
+             "status": "1"
+           },
+        ]
+     }
+     ```
+
+**Фильтрация списка велосипедов по статусу**
+- **Метод**: GET
+- **URL**: /api/bikes/
+- **Параметры запроса**: "?status=1"
+- **Ответ**:
+     ```json
+     {
+        "total": 100,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 10,
+        "data": [
+          {
+             "id": 1,
+             "brand": "Stels",
+             "rent_price": "10",
+             "photo": "",
+             "status": "available"
+           },
+        ]
+     }
+     ```
+
+**Аренда велосипеда**
+- **Метод**: POST
+- **URL**: /api/rent/
+- **Тело запроса**:
+     ```json
+     {
+       "bike_id": "2",
+       "user_id": "2",
+       "start_date": "2024-08-01T10:00:00",
+       "exp_date": "2024-08-02T10:00:00",
+     }
+     ```
+- **Ответ**:
+     ```json
+     {
+       "status": "success",
+       "message": "Аренда успешно сохранена",
+       "rent": {
+         "id": "3",
+         "brand": "Stels",
+         "user_name": "Viadssd",
+         "start_date": "2024-08-01T10:00:00",
+         "exp_date": "2024-08-02T10:00:00",
+         "cost": "111.00",
+       }
+     }
+     ```
+
+**Возврат велосипеда**
+- **Метод**: POST
+- **URL**: /api/rent/return/
+- **Тело запроса**:
+     ```json
+     {
+       "rent_id": "2",
+       "act_return_date": "2024-08-02T09:30:00"
+     }
+     ```
+- **Ответ**:
+     ```json
+     {
+       "status": "success",
+       "message": "Аренда велосипеда прекращена",
+       "rent": {
+         "id": "3",
+         "brand": "Stels",
+         "user_name": "Viadssd",
+         "start_date": "2024-08-01T10:00:00",
+         "exp_date": "2024-08-02T10:00:00",
+         "act_return_date": "2024-08-02T09:30:00",
+         "cost": "111.00",
+       }
+     }
+     ```
+
+**История аренды пользователя**
+- **Метод**: GET
+- **URL**: /api/history/
+- **Параметры запроса**: "?id=1"
+- **Ответ**:
+     ```json
+     {
+        "total": 100,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 10,
+        "data": [
+          {
+            "id": 1,
+            "bike": {
+              "id": 3,
+              "brand": "Stels",
+              "photo": "https://example.com/photo.jpg"
+            },
+            "start_date": "2024-08-01T10:00:00",
+            "exp_date": "2024-08-02T10:00:00",
+            "act_return_date": "2024-08-02T09:30:00",
+            "cost": 111.00,
+            "status": "2"
+          },
+        ]
+     }
+     ```
