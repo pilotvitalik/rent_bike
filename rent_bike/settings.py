@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'bikes',
     'history_rent',
     'main',
-    'rent'
+    'rent',
+    'users'
 ]
 
 MIDDLEWARE = [
