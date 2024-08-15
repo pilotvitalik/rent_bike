@@ -26,7 +26,7 @@ services:
     environment:
       - POSTGRES_USER=vitaliy
       - POSTGRES_PASSWORD=1235
-      - POSTGRES_DB=docker_project
+      - POSTGRES_DB=rent_bike
 
 volumes:
       static_data:

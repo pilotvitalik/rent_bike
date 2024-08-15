@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'rent_bike.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'host': env('HOST'),
+        'HOST': env('HOST'),
         'USER': env('USER'),
         'PASSWORD': env('PASSWD'),
         'NAME': env('DB'),
